@@ -12,6 +12,11 @@ h1 {
   margin: 2%;
 }
 
+#game-status {
+  position: absolute;
+  top: 12%;
+}
+
 #p1 {
   position: absolute;
   left: 1%;
@@ -42,6 +47,14 @@ h1 {
   color: rgb(125, 125, 125);
 }
 
+.grid-item:hover {
+  background-color: #3aceff00;
+}
+
+.occupied:hover {
+  background-color: rgba(203, 42, 74, 0.982);
+}
+
 .grid-container .grid-item {
   border: 1px solid rgba(199, 199, 199, 0.769);
 }
@@ -49,4 +62,5 @@ h1 {
 #reset {
   position: absolute;
   bottom: 10%;
+  /* border: none; */
 }

@@ -1,94 +1,49 @@
-// Make a gameboard module
-let gameboard = (function() {
-  // create a gameboard array set to empty values for each square
-  let squaresArray = ["", "", "", "", "", "", "", "", ""];
-  // grab the gameboard
-  const board = document.querySelector('#grid');
-  // crab the cells in an array
-  const cells = document.querySelectorAll('.grid-item')
-  // set the winner variable to null
-  let winner = null
-  // make a render function
-  const render = () => {
-    // make each cell's text content equal to the squareArray's text content- linking the JS array to the HTML cells
-    squaresArray.forEach((mark, idx) => {
-      cells[idx].textContent = squaresArray[idx];
-    });
+// add player and cpu variables
+let player = 'O';
+let computer = 'X';
+// make the board in an array
+let playBoard = ['', '', '', '', '', '', '', '', ''];
+// grab the grid
+const boardContainer = document.querySelector('.grid-container');
+
+// render the playBoard array into the boardContainer. First make a renderBoard function
+const renderBoard = () => {
+  // set the innerHTML of boardContainer to empty
+  boardContainer.innerHTML = '';
+  // iterate over each playBoard array item and insert them into the boardContainer using innerHTML += and add an onclick function addPlayerMove and insert the individual playBoard value using idx
+  playBoard.forEach((el, idx) => {
+    boardContainer.innerHTML += `<div class='grid-item' id='block_${idx}' onclick='addPlayerMove(${idx})'>${playBoard[idx]}</div>`
+    // if the el is equal to player or computer, that square's class should be .occupied
+    if(el == player || el == computer) {
+      document.querySelector(`#block_${idx}`).classList.add('occupied');
+    }
+  });
+}
+renderBoard();
+
+// make addPlayerMove function
+const addPlayerMove = e => {
+  // If playerBoard[e] is empty, the value of player is assigned to it
+  if (playBoard[e] == '') {
+    playBoard[e] = player;
+    // render the board
+    renderBoard();
+    // call the addComputerMove function
+    addComputerMove();
   }
-  // make a clearBoard function that resets all the squaresArray items to empty strings
-  const clearBoard = () => {
-    squaresArray = ["", "", "", "", "", "", "", "", ""];
-  };
-  // make a checkWins function that is an object of all possible winning arrays
-  const checkWins = () => {
-    // take each winning array and compare it to the index position of the squaresArray
-    const winningArray = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-      [0, 4, 8],
-      [2, 4, 6]
-    ]
-    winningArray.forEach((combo) => {
-      console.log([combo[0]])
-      if (squaresArray[combo[0]] 
-        && squaresArray[combo[0]] === squaresArray[combo[1]] 
-        && squaresArray[combo[0]] === squaresArray[combo[2]]) {
-          winnner = 'current';
-        };
-    })
-    // reset winner variable to 'current'
+};
 
-    // return winner or null or tie depending on if the squares array includes empty strings
+// make addComputerMove function
+const addComputerMove = () => {
+  // do loop here
+  do {
+    // make a variable selected which is Math floor and inside Math random  * 9
+    selected = Math.floor(Math.random() * 9);
+    console.log(selected);
+    // add while after do. while playboard with the selected index is not empty, assign it to computer
+  } while (playBoard[selected] !== '') {
+    playBoard[selected] = computer;
   }
-  // return all of the variables
-  return {render, clearBoard, checkWins}
-})();
-  
-
-// Make  a gamePlay module to stroe all of the game logic
-
-// Make a factoryFunction to create players with their own names and markers
-
-
-
-// // GameBoard module
-// let gameboard = (function() {
-//   // let gameArray = 
-//   const board = (document.querySelector('#grid'));
-//   const squares = Array.from(board.children);
-//   const render = () => {
-//     gameArray.forEach((mark, ind) => {
-//       squares[ind].textContent = gameArray[ind];
-//     })
-//   }
-
-  
-
-// })();
-
-// // displayController module
-// let displayController = (function() {
-
-//   function clearBoard() {
-//     const board = Array.from(document.querySelector('#grid').children)
-//     for (let i = 0; i < board.length; i++) {
-//       board[i].textContent = ''
-//     }
-//   }
-
-//   return {clearBoard}
-// })();
-
-// // Player factory function
-// const playerFactory = (name, marker) => {
-//   const squares = document.querySelector('#grid').children
-  
-//   return {name, marker}
-// }
-
-// const player1 = playerFactory('Bob', 'x');
-// const reset = document.getElementById('reset').addEventListener('click', displayController.clearBoard);
+  // call render function
+  renderBoard();
+}
