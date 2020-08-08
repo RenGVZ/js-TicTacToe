@@ -17,6 +17,18 @@ h1 {
   top: 12%;
 }
 
+.player-win {
+  color: green;
+}
+
+.computer-win {
+  color: red;
+}
+
+.draw {
+  color: orange;
+}
+
 #p1 {
   position: absolute;
   left: 1%;
