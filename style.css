@@ -76,3 +76,16 @@ h1 {
   bottom: 10%;
   /* border: none; */
 }
+
+/* CSS for script3 */
+.oClass {
+  background-color: palegreen;
+}
+
+.xClass {
+  background-color: pink;
+}
+
+.setBoardHoverClass {
+  background-color: slategrey;
+}
