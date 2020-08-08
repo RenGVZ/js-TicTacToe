@@ -17,16 +17,16 @@ h1 {
   top: 12%;
 }
 
-.player-win {
-  color: green;
+.player-winner {
+  color: rgb(8, 155, 8);
 }
 
-.computer-win {
-  color: red;
+.computer-winner {
+  color: rgb(223, 42, 29);
 }
 
 .draw {
-  color: orange;
+  color: rgb(255, 255, 0);
 }
 
 #p1 {

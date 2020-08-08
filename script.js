@@ -83,7 +83,6 @@ const checkForWinner = () => {
     // else the board is fulll and draw should be displayed in gameStatus as well as a draw class
     gameStatus.innerText == "It's a Tie!";
     gameStatus.classList.add('draw');
-    // boardFull = true;
   }
 }
 
