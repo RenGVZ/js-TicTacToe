@@ -1,9 +1,18 @@
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+:root {
+  --cell-size: 100px;
+  --mark-size: calc(var(--cell-size) * .9);
+}
+
 body {
+  margin: 0;
   display: flex;
   justify-content: center;
   align-content: center;
   background-image: linear-gradient(to right, #9c9cd5, #5dc6fff0, #00d4ff);
-  /* text-align: center; */
+  text-align: center;
   color:white;
 }
 
@@ -48,13 +57,14 @@ h1 {
 }
 
 .grid-item {
-  width: 100px;
-  height: 100px;
+  width: var(--cell-size);
+  height: var(--cell-size);
   background-color: aliceblue;
   font-size: 20px;
   text-align: center;
   display: flex;
   justify-content: center;
+  position: relative;
   padding: 30%;
   color: rgb(125, 125, 125);
 }
@@ -78,12 +88,49 @@ h1 {
 }
 
 /* CSS for script3 */
-.oClass {
-  background-color: palegreen;
+
+/* .xClass::before,
+.xClass::after {
+  content: '';
+  width: calc(var(--mark-size) * .15);
+  height: var(--mark-size);
+  background-color: black;
+  position: absolute;
 }
 
+.xClass::before {
+  transform: rotate(45deg);
+}
+
+.xClass::after {
+  transform: rotate(-45deg);
+}
+
+.oClass::before,
+.oClass::after {
+  content: '';
+  border-radius: 50%;
+  position: absolute;
+  background-color: white ;
+}
+
+.oClass::before {
+  width: var(--mark-size);
+  height: var(--mark-size);
+  background-color: black;
+}
+
+.oClass::after {
+  width: calc(var(--mark-size) + .7);
+  height: calc(var(--mark-size) + .7);
+  background-color: white;
+} */
 .xClass {
-  background-color: pink;
+  background-color: red;
+}
+
+.oClass {
+  background-color: black;
 }
 
 .setBoardHoverClass {
