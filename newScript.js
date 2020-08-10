@@ -18,20 +18,9 @@ const gameModule = (() => {
   // grab all of the cellElements
   const cellElements = document.querySelectorAll('.grid-item');
   // create the playBoardArray  
-  let playBoardArray = ['0', '1', '2', '3', '4', '5', '6', '7', '8']
+  let playBoardArray = ['', '', '', '', '', '', '', '', '']
   // initialize currentPlayer to null
   let currentPlayer = player1;
-  // make the winningArray
-  const winningArrays = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [2, 4, 6],
-    [0, 4, 8]
-  ]
   // make render function
   const render = () => {
     cellElements.forEach((cell, i) => {
@@ -45,17 +34,52 @@ const gameModule = (() => {
     })
     currentPlayer = null;
   }
+  let winningArrays = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+  ]
   // check for a winner
   const checkWinner = (currentPlayer) => {
-    return winningArrays.some((combo) => {
-      return combo.every(i => {
-        console.log(i)
-      })
+    const p = playBoardArray
+    const JS = JSON.stringify;
+    const xCheck = JS(['X', 'X', 'X'])
+    const oCheck = JS(['O', 'O', 'O'])
+    
+    
+    let xArray = [];
+    let oArray = [];
+    cellElements.forEach((cell, i) => {
+      let letter = cell.innerText
+      if (letter == 'X') {
+        xArray.push(i)
+      } else if (letter == 'O'){
+        oArray.push(i)
+      }
+       
+    })
+    checkArrays(xArray, oArray);
+    // console.log(xArray, oArray)
+    //  return {xArray, oArray}
+  }
+
+  const checkArrays = (xArray, oArray) => {
+    winningArrays.forEach(combo => {
+      console.log(`xArray: ${xArray}`, `combo: ${combo}`)
+      if (xArray === combo) {
+        return 'xArray'
+      } else if (oArray === combo) {
+        return 'oArray'
+      }
+    console.log(xArray)
     })
   }
-// console.log(`combo: ${combo}, 
-// playBoardArray${playBoardArray}
-// currentPlayerMark: ${currentPlayer.mark}`)
+
 
   // return all of the necessary functions
   return { render, reset, checkWinner, cellElements, currentPlayer }
@@ -75,7 +99,7 @@ const playGame = (() => {
     cellElements.forEach((cell, i) => {
       cell.addEventListener('click', (e) =>{
         let target = e.target;
-        if (target.innerText !== '') {
+        if (target.innerText == '') {
           target.innerText = currentPlayer.displayMark();
           switchTurns();
           gameModule.checkWinner(currentPlayer);
