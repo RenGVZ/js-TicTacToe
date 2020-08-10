@@ -5,7 +5,7 @@ const playerFactory = (name, mark) => {
     return mark;
   }
   // return the playerFactory methods
-  return { displayMark };
+  return { displayMark, mark };
 };
 
 const player1 = playerFactory('Player1', 'X');
@@ -20,7 +20,7 @@ const gameModule = (() => {
   // create the playBoardArray  
   let playBoardArray = ['0', '1', '2', '3', '4', '5', '6', '7', '8']
   // initialize currentPlayer to null
-  let currentPlayer = player2;
+  let currentPlayer = player1;
   // make the winningArray
   const winningArrays = [
     [0, 1, 2],
@@ -46,9 +46,16 @@ const gameModule = (() => {
     currentPlayer = null;
   }
   // check for a winner
-  const checkWinner = () => {
-    console.log(winningArrays)
+  const checkWinner = (currentPlayer) => {
+    return winningArrays.some((combo) => {
+      return combo.every(i => {
+        console.log(i)
+      })
+    })
   }
+// console.log(`combo: ${combo}, 
+// playBoardArray${playBoardArray}
+// currentPlayerMark: ${currentPlayer.mark}`)
 
   // return all of the necessary functions
   return { render, reset, checkWinner, cellElements, currentPlayer }
@@ -58,15 +65,20 @@ const gameModule = (() => {
 const playGame = (() => {
   currentPlayer = gameModule.currentPlayer
   cellElements = gameModule.cellElements;
+  // make switchTurns function
+  const switchTurns = () => {
+    currentPlayer = currentPlayer === player1 ? player2 : player1;
+  }
+
   // make a player 1 move by changing the elements to x
   const playerMove = () => {
-    cellElements.forEach(cell => {
-      cell.addEventListener('click', (e) => {
+    cellElements.forEach((cell, i) => {
+      cell.addEventListener('click', (e) =>{
         let target = e.target;
-        if (currentPlayer == player1) {
-          target.innerText = player1.displayMark();
-        } else if (currentPlayer == player2) {
-          target.innerText = player2.displayMark();
+        if (target.innerText !== '') {
+          target.innerText = currentPlayer.displayMark();
+          switchTurns();
+          gameModule.checkWinner(currentPlayer);
         }
       })
     })
@@ -75,7 +87,7 @@ const playGame = (() => {
   return { playerMove }
 })();
 
-
+document.addEventListener('onload', gameModule.render(), playGame.playerMove())
 
 
 // gameInit function that makes 2 players and changes the currentTurn
